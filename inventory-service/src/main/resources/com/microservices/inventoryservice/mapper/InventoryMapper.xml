@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.microservices.inventoryservice.mapper.InventoryMapper">
+
+    <resultMap id="Inventory" type="com.microservices.inventoryservice.model.Inventory">
+        <id property="id" column="id"></id>
+        <result property="sku_code" column="skuCode"></result>
+        <result property="quantity" column="quantity"></result>
+    </resultMap>
+
+    <select id="findBy" resultType="Inventory">
+        SELECT
+            id,
+            sku_code,
+            quantity
+        FROM
+            inventory
+    </select>
+
+</mapper>
