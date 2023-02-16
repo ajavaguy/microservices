@@ -1,0 +1,7 @@
+J:\Project\microservices-demo\inventory-service\src\main\java\com\microservices\inventoryservice\model\Inventory.java
+J:\Project\microservices-demo\inventory-service\src\main\java\com\microservices\inventoryservice\datasource\InventoryDataSource.java
+J:\Project\microservices-demo\inventory-service\src\main\java\com\microservices\inventoryservice\mapper\InventoryMapper.java
+J:\Project\microservices-demo\inventory-service\src\main\java\com\microservices\inventoryservice\repository\InventoryRepository.java
+J:\Project\microservices-demo\inventory-service\src\main\java\com\microservices\inventoryservice\controller\InventoryController.java
+J:\Project\microservices-demo\inventory-service\src\main\java\com\microservices\inventoryservice\service\InventoryService.java
+J:\Project\microservices-demo\inventory-service\src\main\java\com\microservices\inventoryservice\InventoryServiceApplication.java

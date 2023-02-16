@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.microservices.orderservice.mapper.OrderMapper">
+    <select id="lastInsertId" resultType="Integer">
+        SELECT last_insert_id()
+    </select>
+
+    <insert id="saveOrder">
+        INSERT INTO order (
+            order_number
+        ) VALUES (
+            #{order.orderNumber}
+        )
+    </insert>
+
+    <insert id="placeOrder">
+        INSERT INTO order_line (
+            sku_code,
+            price,
+            quantity,
+            order_id
+        ) VALUES
+        <foreach collection="orderLineItemsList" item="item" index="index">
+            (
+                #{item.skuCode},
+                #{item.price},
+                #{item.quantity},
+                #{orderId}
+            )
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,9 @@
+J:\Project\microservices-demo\product-service\src\main\java\com\microservices\productservice\controller\ProductController.java
+J:\Project\microservices-demo\product-service\src\main\java\com\microservices\productservice\dto\ProductRequest.java
+J:\Project\microservices-demo\product-service\src\main\java\com\microservices\productservice\repository\ProductRepository.java
+J:\Project\microservices-demo\product-service\src\main\java\com\microservices\productservice\ProductServiceApplication.java
+J:\Project\microservices-demo\product-service\src\main\java\com\microservices\productservice\model\Product.java
+J:\Project\microservices-demo\product-service\src\main\java\com\microservices\productservice\dto\ProductResponse.java
+J:\Project\microservices-demo\product-service\src\main\java\com\microservices\productservice\datasource\ProductDataSource.java
+J:\Project\microservices-demo\product-service\src\main\java\com\microservices\productservice\mapper\ProductMapper.java
+J:\Project\microservices-demo\product-service\src\main\java\com\microservices\productservice\service\ProductService.java

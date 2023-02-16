@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.microservices.productservice.mapper.ProductMapper">
+    <select id="now" resultType="java.time.LocalDateTime">
+        SELECT NOW();
+    </select>
+
+    <insert id="createProduct">
+        INSERT INTO product (
+            name,
+            description,
+            price
+        ) VALUES(
+            #{product.name},
+            #{product.description},
+            #{product.price}
+        )
+    </insert>
+
+    <resultMap id="product" type="com.microservices.productservice.model.Product">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="description" column="description"></result>
+        <result property="price" column="price"></result>
+    </resultMap>
+
+    <select id="getAll" resultType="List" resultMap="product">
+        SELECT * FROM product;
+    </select>
+</mapper>
