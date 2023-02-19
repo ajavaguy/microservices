@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Builder
 public class OrderLineItems {
     private Long id;
-    private String skuCode;
+    private Long productId;
     private BigDecimal price;
     private Integer quantity;
 

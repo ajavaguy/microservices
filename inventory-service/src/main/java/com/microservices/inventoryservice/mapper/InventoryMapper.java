@@ -4,9 +4,9 @@ import com.microservices.inventoryservice.model.Inventory;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.Optional;
+import java.util.List;
 
 @Mapper
 public interface InventoryMapper {
-    Optional<Inventory> findBy(@Param("skuCode") String skuCode);
+    List<Inventory> findByProductIdIn(@Param("productIds") List<Integer> productIds);
 }

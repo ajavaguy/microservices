@@ -1,7 +1,10 @@
 package com.microservices.orderservice.service;
 
+import com.microservices.orderservice.dto.InventoryResponse;
 import com.microservices.orderservice.dto.OrderLineItemsDto;
+import com.microservices.orderservice.dto.OrderLineItemsRequest;
 import com.microservices.orderservice.dto.OrderRequest;
+import com.microservices.orderservice.exception.OutOfStockException;
 import com.microservices.orderservice.model.Order;
 import com.microservices.orderservice.model.OrderLineItems;
 import com.microservices.orderservice.repository.OrderRepository;
@@ -27,7 +30,7 @@ public class OrderService {
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
 
-        List<OrderLineItems> orderLineItemsList = orderRequest.getOrderLineItemsList()
+        List<OrderLineItems> orderLineItemsList = orderRequest.getOrderLineItemsRequests()
                 .stream()
                 .map(this::mapOrder)
                 .collect(Collectors.toList());
@@ -35,21 +38,32 @@ public class OrderService {
 
         order.setOrderLineItemList(orderLineItemsList); 
 
-        orderRepository.saveOrder(order);
-        webClient.get()
-                .uri("http://localhost:8082/api/inventory")
+        List<Long> productIds = order.getOrderLineItemList()
+                .stream()
+                .map(OrderLineItems::getProductId)
+                .collect(Collectors.toList());
+
+        List<InventoryResponse> inventoryResponses = List.of(webClient.get()
+                .uri("http://localhost:8082/api/inventory",
+                        uriBuilder -> uriBuilder.queryParam("productIds", productIds).build())
                 .retrieve()
-                .bodyToMono(Boolean.class)
-                .block();
+                .bodyToMono(InventoryResponse[].class)
+                .block());
+
+        if(inventoryResponses.stream().anyMatch(InventoryResponse::isOutOfStock)) {
+            throw new OutOfStockException();
+        }
+
+        orderRepository.saveOrder(order);
         Integer orderId = orderRepository.lastInsertId();
         orderRepository.placeOrder(orderLineItemsList, orderId);
     }
 
-    private OrderLineItems mapOrder(OrderLineItemsDto orderLineItemsDto) {
+    private OrderLineItems mapOrder(OrderLineItemsRequest orderLineItemsRequest) {
         return OrderLineItems.builder()
-                .price(orderLineItemsDto.getPrice())
-                .quantity(orderLineItemsDto.getQuantity())
-                .skuCode(orderLineItemsDto.getSkuCode())
+                .price(orderLineItemsRequest.getPrice())
+                .quantity(orderLineItemsRequest.getQuantity())
+                .productId(orderLineItemsRequest.getProductId())
                 .build();
     }
 }

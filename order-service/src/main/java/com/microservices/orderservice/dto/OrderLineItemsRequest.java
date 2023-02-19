@@ -1,14 +1,16 @@
-package com.microservices.inventoryservice.model;
+package com.microservices.orderservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Inventory {
-    private Long id;
+public class OrderLineItemsRequest {
     private Long productId;
+    private BigDecimal price;
     private Integer quantity;
 }

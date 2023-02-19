@@ -7,7 +7,7 @@
     </select>
 
     <insert id="createProduct">
-        INSERT INTO product (
+        INSERT INTO products (
             name,
             description,
             price
@@ -26,6 +26,6 @@
     </resultMap>
 
     <select id="getAll" resultType="List" resultMap="product">
-        SELECT * FROM product;
+        SELECT * FROM products;
     </select>
 </mapper>

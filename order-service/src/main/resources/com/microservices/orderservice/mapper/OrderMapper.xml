@@ -7,23 +7,23 @@
     </select>
 
     <insert id="saveOrder">
-        INSERT INTO order (
+        INSERT INTO orders (
             order_number
         ) VALUES (
             #{order.orderNumber}
         )
     </insert>
 
-    <insert id="placeOrder">
-        INSERT INTO order_line (
-            sku_code,
+    <insert id="placeOrder" parameterType="List">
+        INSERT INTO order_line_items (
+            product_id,
             price,
             quantity,
             order_id
         ) VALUES
         <foreach collection="orderLineItemsList" item="item" index="index">
             (
-                #{item.skuCode},
+                #{item.productId},
                 #{item.price},
                 #{item.quantity},
                 #{orderId}

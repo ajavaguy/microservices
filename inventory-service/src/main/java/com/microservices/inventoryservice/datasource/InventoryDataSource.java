@@ -6,6 +6,7 @@ import com.microservices.inventoryservice.repository.InventoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -15,8 +16,7 @@ public class InventoryDataSource implements InventoryRepository {
     private final InventoryMapper inventoryMapper;
 
     @Override
-    public boolean isInStock(String skuCode) {
-        Optional<Inventory> inventoryOptional = inventoryMapper.findBy(skuCode);
-        return inventoryOptional.isPresent();
+    public List<Inventory> findByProductIdIn(List<Integer> productIds) {
+        return inventoryMapper.findByProductIdIn(productIds);
     }
 }
