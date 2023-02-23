@@ -15,6 +15,6 @@ public class OrderController {
     @PostMapping
     public String placeOrder(@RequestBody OrderRequest orderRequest) {
         orderService.placeOrder(orderRequest);
-        return "";
+        return "Order placed successfully!";
     }
 }

@@ -1,7 +1,6 @@
 package com.microservices.orderservice.service;
 
 import com.microservices.orderservice.dto.InventoryResponse;
-import com.microservices.orderservice.dto.OrderLineItemsDto;
 import com.microservices.orderservice.dto.OrderLineItemsRequest;
 import com.microservices.orderservice.dto.OrderRequest;
 import com.microservices.orderservice.exception.OutOfStockException;
@@ -24,7 +23,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     public void placeOrder(OrderRequest orderRequest) {
         Order order = new Order();
@@ -43,8 +42,8 @@ public class OrderService {
                 .map(OrderLineItems::getProductId)
                 .collect(Collectors.toList());
 
-        List<InventoryResponse> inventoryResponses = List.of(webClient.get()
-                .uri("http://localhost:8082/api/inventory",
+        List<InventoryResponse> inventoryResponses = List.of(webClientBuilder.build().get()
+                .uri("http://inventory-service/api/inventory",
                         uriBuilder -> uriBuilder.queryParam("productIds", productIds).build())
                 .retrieve()
                 .bodyToMono(InventoryResponse[].class)

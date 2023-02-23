@@ -2,30 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.microservices.productservice.mapper.ProductMapper">
-    <select id="now" resultType="java.time.LocalDateTime">
-        SELECT NOW();
-    </select>
-
     <insert id="createProduct">
         INSERT INTO products (
             name,
             description,
-            price
+            price,
+            quantity
         ) VALUES(
             #{product.name},
             #{product.description},
-            #{product.price}
+            #{product.price},
+            #{product.quantity}
         )
     </insert>
 
-    <resultMap id="product" type="com.microservices.productservice.model.Product">
+    <resultMap id="products" type="com.microservices.productservice.model.Product">
         <id property="id" column="id"></id>
         <result property="name" column="name"></result>
         <result property="description" column="description"></result>
         <result property="price" column="price"></result>
+        <result property="quantity" column="quantity"></result>
     </resultMap>
 
-    <select id="getAll" resultType="List" resultMap="product">
-        SELECT * FROM products;
+    <select id="getAll" resultType="List" resultMap="products">
+        SELECT
+            name,
+            description,
+            price,
+            quantity
+        FROM
+            products;
     </select>
 </mapper>

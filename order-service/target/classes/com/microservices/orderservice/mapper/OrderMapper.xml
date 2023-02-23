@@ -21,13 +21,13 @@
             quantity,
             order_id
         ) VALUES
-        <foreach collection="orderLineItemsList" item="item" index="index">
+        <foreach collection="orderLineItemsList" item="item" separator=",">
             (
                 #{item.productId},
                 #{item.price},
                 #{item.quantity},
                 #{orderId}
-            ),
+            )
         </foreach>
     </insert>
 </mapper>
